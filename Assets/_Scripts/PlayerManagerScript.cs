@@ -15,10 +15,14 @@ public class PlayerManagerScript : MonoBehaviour {
 	public PlayerScript RedPlayer;
 	public PlayerScript BluePlayer;
 
+	private PlayerScript currentPlayer;
+
 	public GameObject GreenAvatar;
 	public GameObject PurpleAvatar;
 	public GameObject RedAvatar;
 	public GameObject BlueAvatar;
+
+	private GameObject currentAvatar;
 
 	public PlayerScript[] players;
 	public int currentPlayerIndex = 0;
@@ -92,5 +96,45 @@ public class PlayerManagerScript : MonoBehaviour {
 		PurpleAvatar.active = true;
 		RedAvatar.active = true;
 		BlueAvatar.active = true;
+	}
+
+	public void setPlayerActive(int playerIndex){
+		if(playerIndex == 0){
+			currentPlayer = GreenPlayer;
+			currentAvatar = GreenAvatar;
+		}
+		else if(playerIndex == 1){
+			currentPlayer = PurplePlayer;
+			currentAvatar = GreenAvatar;
+		}
+		else if(playerIndex == 2){
+			currentPlayer = RedPlayer;
+			currentAvatar = RedAvatar;
+		}
+		else if(playerIndex == 3){
+			currentPlayer = BluePlayer;
+			currentAvatar = BlueAvatar;
+		}
+	}
+
+	public void currentTryToStepInDirection(Vector3 direction){
+		AvatarBehaviorScript av = currentAvatar.GetComponent<AvatarBehaviorScript>();
+		av.tryToStep(direction);
+	}
+
+	public void currentTryToStepLeft(){
+		currentTryToStepInDirection(new Vector3(-5, 0, 0));
+	}
+
+	public void currentTryToStepRight(){
+		currentTryToStepInDirection(new Vector3(5,0,0));
+	}
+
+	public void currentTryToStepUp(){
+		currentTryToStepInDirection(new Vector3(0,0,5));
+	}
+
+	public void currentTryToStepDown(){
+		currentTryToStepInDirection(new Vector3(0,0,-5));
 	}
 }

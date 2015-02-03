@@ -150,6 +150,22 @@ public class GameMainScript : MonoBehaviour {
 
 		if(state == playerChooseSpaceState){
 			//transition to nextPlayerTransitionState if the player has no steps remaining.
+
+			//if(NumSteps > 0){
+			if(Input.GetKeyDown(KeyCode.LeftArrow)){
+				playerManager.currentTryToStepLeft();
+			}
+			if(Input.GetKeyDown(KeyCode.DownArrow)){
+				playerManager.currentTryToStepDown();
+			}
+			if(Input.GetKeyDown(KeyCode.RightArrow)){
+				playerManager.currentTryToStepRight();
+			}
+			if(Input.GetKeyDown(KeyCode.UpArrow)){
+				playerManager.currentTryToStepUp();
+			}
+			//}
+
 		}
 
 		if(state == showPlayerCardsState){
