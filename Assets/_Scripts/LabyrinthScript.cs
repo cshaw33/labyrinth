@@ -106,22 +106,32 @@ public class LabyrinthScript : MonoBehaviour {
 				else if(c == '2'){
 					GameObject gate = (GameObject) Instantiate(Gate, new Vector3(getXCoordinate(i), 0.0f, getYCoordinate(j)), Gate.transform.rotation);
 					//set text to 2
+					GateScript gs = gate.GetComponent<GateScript>();
+					gs.setText("2");
 				}
 				else if(c == '3'){
 					GameObject gate = (GameObject) Instantiate(Gate, new Vector3(getXCoordinate(i), 0.0f, getYCoordinate(j)), Gate.transform.rotation);
 					//set text to 3
+					GateScript gs = gate.GetComponent<GateScript>();
+					gs.setText("3");
 				}
 				else if(c == '4'){
 					GameObject gate = (GameObject) Instantiate(Gate, new Vector3(getXCoordinate(i), 0.0f, getYCoordinate(j)), Gate.transform.rotation);
 					//set text to 4
+					GateScript gs = gate.GetComponent<GateScript>();
+					gs.setText("4");
 				}
 				else if(c == '5'){
 					GameObject gate = (GameObject) Instantiate(Gate, new Vector3(getXCoordinate(i), 0.0f, getYCoordinate(j)), Gate.transform.rotation);
 					//set text to 5
+					GateScript gs = gate.GetComponent<GateScript>();
+					gs.setText("5");
 				}
 				else if(c == '6'){
 					GameObject gate = (GameObject) Instantiate(Gate, new Vector3(getXCoordinate(i), 0.0f, getYCoordinate(j)), Gate.transform.rotation);
 					//set text to 6
+					GateScript gs = gate.GetComponent<GateScript>();
+					gs.setText("6");
 				}
 			}
 		}
