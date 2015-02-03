@@ -22,14 +22,18 @@ public class CameraBehaviorScript : MonoBehaviour {
 
 	public bool smoothCameraTransition(Vector3 newLocation){
 		//linear interpolation between current camera position and desired position.
-		if((transform.position - newLocation + offset).magnitude <= 4.0f){
+		float mag = (newLocation + offset - transform.position).magnitude;
+		print("magnitude is : "+ mag);
+		if(mag <= 1.0f){
 			//snap to position:
 			transform.position = newLocation + offset;
+			print("snapping to position");
+			return true;
 		}
 		Vector3 transpose = newLocation + offset - transform.position;
 		transpose.Normalize();
 		transform.position = transform.position + transpose * 1;
-		if((transform.position - newLocation + offset).magnitude < 1.0f){
+		if((newLocation + offset - transform.position).magnitude < 1.0f){
 			print("We're pretty damn close!");
 			return true;
 		}

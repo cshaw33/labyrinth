@@ -136,6 +136,7 @@ public class GameMainScript : MonoBehaviour {
 		if(state == startGameAnimationState){
 			//do things here.  Interpolate camera position.
 			bool ready = mainCam.smoothCameraTransition(playerManager.playerLocation());
+			print("Is ready? " + ready);
 			if(ready) {
 				print("Ready to start turn");
 				HUD.active = true;
@@ -194,7 +195,7 @@ public class GameMainScript : MonoBehaviour {
 			//player standings turned on 
 			//player cards turned on 
 			//spacebar to roll text turned on
-
+			HUD.active = true;
 			spacebarToRollText.active = true;
 		}
 		else if(state == playerChooseSpaceState){ 
