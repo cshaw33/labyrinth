@@ -187,8 +187,21 @@ public class GameMainScript : MonoBehaviour {
 			playerManager.setAvatarsActive();
 		}
 
-		else if(state == playerRollDiceState){ spacebarToRollText.active = true;}
-		else if(state == playerChooseSpaceState){ spacebarToRollText.active = false;}
+		else if(state == playerRollDiceState){ 
+			//hud turned on
+			//player name text updated
+			//steps remaining = 0;
+			//player standings turned on 
+			//player cards turned on 
+			//spacebar to roll text turned on
+
+			spacebarToRollText.active = true;
+		}
+		else if(state == playerChooseSpaceState){ 
+			//Update steps remaining on HUD
+			//possible steps in range are highlighted on board.  
+			spacebarToRollText.active = false;
+		}
 	}
 
 	public void hideAllUI() {
