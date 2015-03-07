@@ -108,6 +108,9 @@ public class PlayerManagerScript : MonoBehaviour {
 		currentPlayerIndex++;
 		if(currentPlayerIndex >=4) currentPlayerIndex = 0;
 
+		setPlayerActive(currentPlayerIndex); 
+		updateHUD();
+
 		//update UI with new player name, number of steps, change Cards displayed when Cards are shown.  
 	}
 
@@ -150,25 +153,33 @@ public class PlayerManagerScript : MonoBehaviour {
 		}
 	}
 
-	public void currentTryToStepInDirection(Vector3 direction){
+	public int currentTryToStepInDirection(Vector3 direction){
 		AvatarBehaviorScript av = currentAvatar.GetComponent<AvatarBehaviorScript>();
-		av.tryToStep(direction);
+		bool success = av.tryToStep(direction);
+		if(success){
+			NumStepsLeft--;
+			updateStepsText();
+			Vector3 newLocation = currentAvatar.transform.position + direction;
+			currentAvatar.transform.position = newLocation;
+		}
+
+		return NumStepsLeft;
 	}
 
-	public void currentTryToStepLeft(){
-		currentTryToStepInDirection(new Vector3(-5, 0, 0));
+	public int currentTryToStepLeft(){
+		return currentTryToStepInDirection(new Vector3(-5, 0, 0));
 	}
 
-	public void currentTryToStepRight(){
-		currentTryToStepInDirection(new Vector3(5,0,0));
+	public int currentTryToStepRight(){
+		return currentTryToStepInDirection(new Vector3(5,0,0));
 	}
 
-	public void currentTryToStepUp(){
-		currentTryToStepInDirection(new Vector3(0,0,5));
+	public int currentTryToStepUp(){
+		return currentTryToStepInDirection(new Vector3(0,0,5));
 	}
 
-	public void currentTryToStepDown(){
-		currentTryToStepInDirection(new Vector3(0,0,-5));
+	public int currentTryToStepDown(){
+		return currentTryToStepInDirection(new Vector3(0,0,-5));
 	}
 
 	public void currentRollDice(){

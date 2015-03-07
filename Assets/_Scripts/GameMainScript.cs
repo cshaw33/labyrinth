@@ -158,17 +158,24 @@ public class GameMainScript : MonoBehaviour {
 			//transition to nextPlayerTransitionState if the player has no steps remaining.
 
 			//if(NumSteps > 0){
+			int steps = 1;
+
 			if(Input.GetKeyDown(KeyCode.LeftArrow)){
-				playerManager.currentTryToStepLeft();
+				steps = playerManager.currentTryToStepLeft();
 			}
 			if(Input.GetKeyDown(KeyCode.DownArrow)){
-				playerManager.currentTryToStepDown();
+				steps = playerManager.currentTryToStepDown();
 			}
 			if(Input.GetKeyDown(KeyCode.RightArrow)){
-				playerManager.currentTryToStepRight();
+				steps = playerManager.currentTryToStepRight();
 			}
 			if(Input.GetKeyDown(KeyCode.UpArrow)){
-				playerManager.currentTryToStepUp();
+				steps = playerManager.currentTryToStepUp();
+			}
+
+			if(steps <= 0){
+				playerManager.nextPlayer();
+				setGameState(playerRollDiceState);
 			}
 			//}
 

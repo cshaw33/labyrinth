@@ -40,14 +40,12 @@ public class AvatarBehaviorScript : MonoBehaviour {
 		UISteps.text = "Steps: "+NumSteps;
 	}
 
-	public Vector3 tryToStep(Vector3 direction) {
+	public bool tryToStep(Vector3 direction) {
 		Vector3 newPosition = transform.position + direction;
 		bool canStep = labScript.checkIfCanStep(newPosition.x, newPosition.z);
 		if(canStep){ 
-			NumSteps--;
-			updateStepsText();
-			return newPosition;
+			return true;
 		}
-		else return transform.position;
+		else return false;
 	}
 }
