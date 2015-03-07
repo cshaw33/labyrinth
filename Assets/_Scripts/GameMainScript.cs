@@ -146,6 +146,12 @@ public class GameMainScript : MonoBehaviour {
 
 		if(state == playerRollDiceState){
 			//start of player's turn
+
+			if(Input.GetKeyDown(KeyCode.Space)){
+				playerManager.currentRollDice();
+
+				setGameState(playerChooseSpaceState);
+			}
 		}
 
 		if(state == playerChooseSpaceState){
@@ -202,6 +208,10 @@ public class GameMainScript : MonoBehaviour {
 			HUD.active = true;
 			//updateHUD
 			playerManager.setAvatarsActive();
+
+			print("going to init current player");
+			playerManager.initPlayerManager();
+			print("have inited current player");
 		}
 
 		else if(state == playerRollDiceState){ 
@@ -213,10 +223,12 @@ public class GameMainScript : MonoBehaviour {
 			//spacebar to roll text turned on
 			HUD.active = true;
 			spacebarToRollText.active = true;
+			playerManager.updatePlayerNameText();
 		}
 		else if(state == playerChooseSpaceState){ 
 			//Update steps remaining on HUD
-			//possible steps in range are highlighted on board.  
+			//possible steps in range are highlighted on board. 
+			HUD.active = true;
 			spacebarToRollText.active = false;
 		}
 	}
@@ -236,4 +248,5 @@ public class GameMainScript : MonoBehaviour {
 	public void deportPlayer(int quad){
 		playerManager.addPlayer(quad, tempName);
 	}
+	
 }

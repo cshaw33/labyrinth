@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerManagerScript : MonoBehaviour {
@@ -10,22 +11,28 @@ public class PlayerManagerScript : MonoBehaviour {
 	//  4. A collection of gems
 	//  5. 
 
+	public Text PlayerNameText;
+	public Text StepsText;
+	//reference to card UI element
+
 	public PlayerScript GreenPlayer;
 	public PlayerScript PurplePlayer;
 	public PlayerScript RedPlayer;
 	public PlayerScript BluePlayer;
 
-	private PlayerScript currentPlayer;
+	public PlayerScript currentPlayer;
 
 	public GameObject GreenAvatar;
 	public GameObject PurpleAvatar;
 	public GameObject RedAvatar;
 	public GameObject BlueAvatar;
 
-	private GameObject currentAvatar;
+	public GameObject currentAvatar;
 
 	public PlayerScript[] players;
 	public int currentPlayerIndex = 0;
+
+	public int NumStepsLeft = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -35,6 +42,24 @@ public class PlayerManagerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public void initPlayerManager(){
+		initCurrentPlayer();
+		initStartingLocation();
+	}
+
+	public void initCurrentPlayer(){
+		currentPlayer = GreenPlayer;
+		currentAvatar = GreenAvatar;
+	}
+
+	public void initStartingLocation(){
+		Vector3 startLocation;
+		startLocation = new Vector3(0,0, 85); GreenAvatar.transform.position = startLocation;
+		startLocation = new Vector3(85, 0, 0); PurpleAvatar.transform.position = startLocation;
+		startLocation = new Vector3(0, 0, -85); RedAvatar.transform.position = startLocation;
+		startLocation = new Vector3(-85, 0, 0); BlueAvatar.transform.position = startLocation;
 	}
 
 	//called from input from "how many players" screen
@@ -51,17 +76,22 @@ public class PlayerManagerScript : MonoBehaviour {
 	public void addPlayer(int quad, string name){
 		//PlayerScript player = new PlayerScript(quad);
 		PlayerScript player;
+		GameObject avatar;
 		if(quad == 0){
 			player = GreenPlayer;
+			avatar = GreenAvatar;
 		}
 		else if(quad == 1){
 			player = PurplePlayer;
+			avatar = PurpleAvatar;
 		}
 		else if(quad == 2){
 			player = RedPlayer;
+			avatar = RedAvatar;
 		}
 		else if(quad == 3){
 			player = BluePlayer;
+			avatar = BlueAvatar;
 		}
 		else{
 			return;
@@ -77,6 +107,8 @@ public class PlayerManagerScript : MonoBehaviour {
 	public void nextPlayer(){
 		currentPlayerIndex++;
 		if(currentPlayerIndex >=4) currentPlayerIndex = 0;
+
+		//update UI with new player name, number of steps, change Cards displayed when Cards are shown.  
 	}
 
 	public int playerTurn(){
@@ -102,6 +134,7 @@ public class PlayerManagerScript : MonoBehaviour {
 		if(playerIndex == 0){
 			currentPlayer = GreenPlayer;
 			currentAvatar = GreenAvatar;
+
 		}
 		else if(playerIndex == 1){
 			currentPlayer = PurplePlayer;
@@ -136,5 +169,30 @@ public class PlayerManagerScript : MonoBehaviour {
 
 	public void currentTryToStepDown(){
 		currentTryToStepInDirection(new Vector3(0,0,-5));
+	}
+
+	public void currentRollDice(){
+		NumStepsLeft = Random.Range(1, 21);
+		updateStepsText();
+
+	}
+
+	public void updateHUD() {
+		print("about to update player name text");
+		updatePlayerNameText();
+		print("about to update steps text");
+		updateStepsText();
+	}
+
+	public void updatePlayerNameText(){
+		print("there's a null something in here.");
+		print("currentPlayer is: "+currentPlayer);
+		print("currentPlayer.name is: "+currentPlayer.name);
+		print("PlayerNameText.text is: "+PlayerNameText.text);
+		PlayerNameText.text = currentPlayer.playerName;
+	}
+
+	public void updateStepsText() {
+		StepsText.text  = "" + NumStepsLeft;
 	}
 }

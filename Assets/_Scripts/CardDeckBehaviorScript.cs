@@ -119,7 +119,7 @@ public class CardDeckBehaviorScript : MonoBehaviour {
 	}
 
 	void bubbleRecursion(int bubbleIndex, int endIndex){
-		printDeck();
+		//printDeck();
 		if(bubbleIndex  == endIndex) return;
 		if(deck[bubbleIndex] == '0'){
 			bubbleRecursion (bubbleIndex + 1, endIndex);
@@ -127,6 +127,7 @@ public class CardDeckBehaviorScript : MonoBehaviour {
 		else{
 			if(deck[endIndex] == '0'){
 				swapCards(bubbleIndex, endIndex);
+				printDeck();
 				bubbleRecursion(bubbleIndex + 1, endIndex - 1);
 			}
 			else{

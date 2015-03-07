@@ -6,8 +6,10 @@ public class PlayerScript : MonoBehaviour{
 	public char[] playerCards;
 	public int playerIndex = -1;
 	public int playerQuad = -1;
-	public string playerName = "";
-	public AvatarBehaviorScript avatar;
+	public string playerName = "NAME";
+
+
+	public int numSteps = 0; 
 
 	// Use this for initialization
 	void Start () {
@@ -34,34 +36,30 @@ public class PlayerScript : MonoBehaviour{
 		playerCards = cards;
 	}
 
+	public char[] getPlayerCards(){
+		return playerCards;
+	}
+
 	public void setPlayerQuad(int q){
 		playerQuad = q;
+	}
+
+	public int getPlayerQuad(){
+		return playerQuad;
 	}
 
 	public void setPlayerName(string name){
 		playerName = name;
 	}
 
-	public void setStartingLocation(){
-		Vector3 startLocation;
-		if(playerQuad == 0){
-			startLocation = new Vector3(0,0, 85);
-		}
-		else if(playerQuad == 1){
-			startLocation = new Vector3(85, 0, 0);
-		}
-		else if(playerQuad == 2){
-			startLocation = new Vector3(0, 0, -85);
-		}
-		else if(playerQuad == 3){
-			startLocation = new Vector3(-85, 0, 0);
-		}
-		else{
-			//print("cannot set start location of player without a location");
-			return;
-		}
+	public string getPlayerName(){
+		return playerName;
+	}
 
-		avatar.transform.position = startLocation;
+
+
+	public void setStartingLocation(){
+		//deprecated
 	}
 
 
