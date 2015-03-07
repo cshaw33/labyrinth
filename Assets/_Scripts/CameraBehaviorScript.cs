@@ -3,13 +3,16 @@ using System.Collections;
 
 public class CameraBehaviorScript : MonoBehaviour {
 
-	public GameObject avatar;
+	public GameObject avatar; //set by PlayerManagerScript
 	private Vector3 offset;
+
+	public bool cameraFollowAvatar = false;  //toggled by GameMainScript state machine
+
 	// Use this for initialization
 	void Start () {
 		offset = transform.position;
 	}
-	
+
 	// Update is called once per frame
 	void LateUpdate () {
 
@@ -18,6 +21,10 @@ public class CameraBehaviorScript : MonoBehaviour {
 			
 		//}
 		//else transform.position = offset;
+
+		if(cameraFollowAvatar){
+			transform.position = avatar.transform.position + offset;
+		}
 	}
 
 	public bool smoothCameraTransition(Vector3 newLocation){
@@ -43,5 +50,13 @@ public class CameraBehaviorScript : MonoBehaviour {
 
 	public void printVector(Vector3 vector){
 		print("x: "+vector.x+" y: "+vector.y+" z: "+vector.z);
+	}
+
+	public void setAvatar(GameObject av){
+		this.avatar = av;
+	}
+
+	public void setCameraFollowAvatar(bool b){
+		cameraFollowAvatar = b;
 	}
 }

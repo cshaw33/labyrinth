@@ -33,6 +33,7 @@ public class PlayerManagerScript : MonoBehaviour {
 	public int currentPlayerIndex = 0;
 
 	public int NumStepsLeft = 0;
+	public CameraBehaviorScript mainCam;
 
 	// Use this for initialization
 	void Start () {
@@ -52,6 +53,7 @@ public class PlayerManagerScript : MonoBehaviour {
 	public void initCurrentPlayer(){
 		currentPlayer = GreenPlayer;
 		currentAvatar = GreenAvatar;
+		mainCam.setAvatar(GreenAvatar);
 	}
 
 	public void initStartingLocation(){
@@ -141,7 +143,7 @@ public class PlayerManagerScript : MonoBehaviour {
 		}
 		else if(playerIndex == 1){
 			currentPlayer = PurplePlayer;
-			currentAvatar = GreenAvatar;
+			currentAvatar = PurpleAvatar;
 		}
 		else if(playerIndex == 2){
 			currentPlayer = RedPlayer;
@@ -151,6 +153,7 @@ public class PlayerManagerScript : MonoBehaviour {
 			currentPlayer = BluePlayer;
 			currentAvatar = BlueAvatar;
 		}
+		mainCam.setAvatar(currentAvatar);
 	}
 
 	public int currentTryToStepInDirection(Vector3 direction){

@@ -231,6 +231,7 @@ public class GameMainScript : MonoBehaviour {
 			HUD.active = true;
 			spacebarToRollText.active = true;
 			playerManager.updatePlayerNameText();
+			mainCam.setCameraFollowAvatar(true);
 		}
 		else if(state == playerChooseSpaceState){ 
 			//Update steps remaining on HUD
