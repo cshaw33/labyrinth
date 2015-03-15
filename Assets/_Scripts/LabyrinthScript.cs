@@ -11,6 +11,11 @@ public class LabyrinthScript : MonoBehaviour {
 	public GameObject Amythyst;
 	public GameObject Gate;
 
+	public GameObject GreenTree;
+	public GameObject BlueTree;
+	public GameObject RedTree;
+	public GameObject PurpleTree;
+
 
 	private char[,] maze;
 
@@ -103,6 +108,20 @@ public class LabyrinthScript : MonoBehaviour {
 				else if(c == 'a'){
 					GameObject sapphire = (GameObject) Instantiate(Sapphire, new Vector3(getXCoordinate(i), 2.5f, getYCoordinate(j)), Sapphire.transform.rotation);
 				}
+
+				else if(c == 'r'){
+					GameObject greenTree = (GameObject) Instantiate(GreenTree, new Vector3(getXCoordinate(i), 0, getYCoordinate(j)), GreenTree.transform.rotation);
+				}
+				else if(c == 'b'){
+					GameObject purpleTree = (GameObject) Instantiate(PurpleTree, new Vector3(getXCoordinate(i), 0, getYCoordinate(j)), PurpleTree.transform.rotation);
+				}
+				else if(c == 'g'){
+					GameObject redTree = (GameObject) Instantiate(RedTree, new Vector3(getXCoordinate(i), 0, getYCoordinate(j)), RedTree.transform.rotation);
+				}
+				else if(c == 'v'){
+					GameObject blueTree = (GameObject) Instantiate(BlueTree, new Vector3(getXCoordinate(i), 0, getYCoordinate(j)), BlueTree.transform.rotation);
+				}
+
 				else if(c == '2'){
 					GameObject gate = (GameObject) Instantiate(Gate, new Vector3(getXCoordinate(i), 0.0f, getYCoordinate(j)), Gate.transform.rotation);
 					//set text to 2
