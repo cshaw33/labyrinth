@@ -1,0 +1,30 @@
+Camera Positions, Rotations, and Orientations
+
+Starting:
+	Position: (0, 50, -90)
+	Rotation: (40, 0, 0)
+	Scale:    (1, 1, 1)
+
+Green Starting:
+	Position: (0, 50, -5)
+	Rotation: (40, 0, 0)
+	Scale: 	  (1, 1, 1)
+
+Purple Starting
+	Position: (85, 50, -90)
+	Rotation: (40, 0 0)
+	Scale:	  (1, 1, 1)
+
+Red Starting
+	Position: (0, 50, -175)
+	Rotation: (40, 0, 0)
+	Scale:    (1, 1, 1)
+
+Blue Starting
+	Position: (-85, 50, -90)
+	Rotation: (40, 0, 0)
+	Scale: 	  (1, 1, 1)
+
+
+
+
