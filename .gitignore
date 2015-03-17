@@ -15,4 +15,6 @@
 
 *.pid.meta
 
+*.swp
+
 sysinfo.txt
