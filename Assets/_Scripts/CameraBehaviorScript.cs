@@ -23,12 +23,22 @@ public class CameraBehaviorScript : MonoBehaviour {
 		//else transform.position = offset;
 
 		if(cameraFollowAvatar){
-			transform.position = avatar.transform.position + offset;
+			//transform.position = avatar.transform.position + offset;
 		}
 	}
 
-	public bool smoothCameraTransition(Vector3 newLocation){
+	public bool smoothCameraTransition(Vector3 newLocation, Quaternion newRotation, int numIterationsLeft){
 		//linear interpolation between current camera position and desired position.
+
+		//Take the number of iterations left
+		//divide the distance by the number of iternations
+		//divide the number of degrees to rotate in each direction by the number of iterations
+		//move and rotate by that much 
+		//decrement numIterationsLeft
+
+
+
+
 		float mag = (newLocation + offset - transform.position).magnitude;
 		print("magnitude is : "+ mag);
 		if(mag <= 1.0f){
@@ -37,6 +47,8 @@ public class CameraBehaviorScript : MonoBehaviour {
 			print("snapping to position");
 			return true;
 		}
+
+
 		Vector3 transpose = newLocation + offset - transform.position;
 		transpose.Normalize();
 		transform.position = transform.position + transpose * 1;

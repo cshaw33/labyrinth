@@ -16,6 +16,8 @@ public class LabyrinthScript : MonoBehaviour {
 	public GameObject RedTree;
 	public GameObject PurpleTree;
 
+	public GameObject StoneWall;
+
 
 	private char[,] maze;
 
@@ -120,6 +122,10 @@ public class LabyrinthScript : MonoBehaviour {
 				}
 				else if(c == 'v'){
 					GameObject blueTree = (GameObject) Instantiate(BlueTree, new Vector3(getXCoordinate(i), 0, getYCoordinate(j)), BlueTree.transform.rotation);
+				}
+
+				else if(c == 't'){
+					GameObject stoneWall = (GameObject) Instantiate(StoneWall, new Vector3(getXCoordinate(i), 0, getYCoordinate(j)), StoneWall.transform.rotation);
 				}
 
 				else if(c == '2'){

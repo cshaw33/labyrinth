@@ -27,4 +27,26 @@ Blue Starting
 
 
 
+~~~~~~~~~~~~~~~~~~~~~~~~~
+BETTER CAMERA POSITIONS
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Green Starting (Accounting for walls and such)	
+	Position: (-10, 30, 100)
+	Rotation: (50, 135, 0)
+	Scale: 	  (1, 1, 1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
