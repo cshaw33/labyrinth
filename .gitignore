@@ -13,8 +13,12 @@
 *.pidb
 *.booproj
 
+
 *.pid.meta
 
 *.swp
 
 sysinfo.txt
+
+*.DS_Store
+
