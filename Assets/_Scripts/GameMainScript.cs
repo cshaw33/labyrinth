@@ -22,6 +22,7 @@ public class GameMainScript : MonoBehaviour {
 	public InputField playerNameField;
 
 	public GameObject HUD;
+	public GameObject introHud;
 	public GameObject spacebarToRollText;  //Text
 	public LabyrinthScript labScript;
 	public PlayerManagerScript playerManager;
@@ -113,6 +114,13 @@ public class GameMainScript : MonoBehaviour {
 
 		if(state == numPlayersState){
 			print("In NumPlayersState");
+
+			//if "one" pressed, numPlayers = 1; etc.
+			//Once number of players has been selected, go to next state
+			//This action is handled by the button's events defined in the Unity editor
+
+			return;
+
 		}
 
 		if(state == playerNameState){
@@ -204,7 +212,7 @@ public class GameMainScript : MonoBehaviour {
 		gameState = state;
 		hideAllUI();
 
-		if(state == startState){ pressSpaceBarToStart.SetActive(true); print("intro hud should be active");}
+		if(state == startState){ introHud.SetActive(true); pressSpaceBarToStart.SetActive(true); print("intro hud should be active");}
 		else if(state == numPlayersState){ howManyPlayers.SetActive(true);}//set numPlayers
 		else if(state == playerNameState){ enterYourName.SetActive(true);}//create player.
 		else if(state == playerQuadState){ tempName = playerNameField.text;  selectQuadrant.SetActive(true); playersCreated++;}// increment playersCreated on transition. assign starting quad to player.  Disable quads that have been selected.
