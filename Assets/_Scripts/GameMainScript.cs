@@ -9,20 +9,20 @@ public class GameMainScript : MonoBehaviour {
 	public string player3Name;
 	public string player4Name;
 
-	public Text pressSpaceBarToStart;
-	public Text howManyPlayers;
+	public GameObject pressSpaceBarToStart;  //Text
+	public GameObject howManyPlayers;  //Text
 	public Button one;
 	public Button two;
 	public Button three;
 	public Button four;
-	public Text enterYourName;
-	public Text selectQuadrant;
-	public Text ready;
+	public GameObject enterYourName;  //Text
+	public GameObject selectQuadrant; //Text
+	public GameObject ready;  //Text
 
 	public InputField playerNameField;
 
 	public GameObject HUD;
-	public Text spacebarToRollText;
+	public GameObject spacebarToRollText;  //Text
 	public LabyrinthScript labScript;
 	public PlayerManagerScript playerManager;
 	public CameraBehaviorScript mainCam;
@@ -51,8 +51,8 @@ public class GameMainScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		spacebarToRollText.active = false;
-		HUD.active = false;
+		spacebarToRollText.SetActive(false);
+		HUD.SetActive(false);
 		//intro animation of some kind.
 		//"Labyrinth: Press Space Bar to Start"
 		//"How Many Players?" (select 1 2 3 or 4)
@@ -104,10 +104,10 @@ public class GameMainScript : MonoBehaviour {
 
 	private void introStateMachine(int state){
 		if(state == startState){
-			pressSpaceBarToStart.active = true;
+			pressSpaceBarToStart.SetActive(true);
 			if(Input.GetKeyDown(KeyCode.Space)){
 				setGameState (numPlayersState);
-				howManyPlayers.active = true;
+				howManyPlayers.SetActive(true);
 			}
 		}
 
@@ -135,11 +135,11 @@ public class GameMainScript : MonoBehaviour {
 		}
 		if(state == startGameAnimationState){
 			//do things here.  Interpolate camera position.
-			bool ready = mainCam.smoothCameraTransition(playerManager.playerLocation());
+			bool ready = mainCam.smoothCameraTransition(playerManager.playerLocation(), Quaternion.Euler(new Vector3(40, 0, 0)), 50);
 			print("Is ready? " + ready);
 			if(ready) {
 				print("Ready to start turn");
-				HUD.active = true;
+				HUD.SetActive(true);
 				setGameState(playerRollDiceState);
 			}
 		}
@@ -204,15 +204,15 @@ public class GameMainScript : MonoBehaviour {
 		gameState = state;
 		hideAllUI();
 
-		if(state == startState){ pressSpaceBarToStart.active = true; print("intro hud should be active");}
-		else if(state == numPlayersState){ howManyPlayers.active = true;}//set numPlayers
-		else if(state == playerNameState){ enterYourName.active = true;}//create player.
-		else if(state == playerQuadState){ tempName = playerNameField.text;  selectQuadrant.active = true; playersCreated++;}// increment playersCreated on transition. assign starting quad to player.  Disable quads that have been selected.
-		else if(state == readyState){ ready.active = true;}
+		if(state == startState){ pressSpaceBarToStart.SetActive(true); print("intro hud should be active");}
+		else if(state == numPlayersState){ howManyPlayers.SetActive(true);}//set numPlayers
+		else if(state == playerNameState){ enterYourName.SetActive(true);}//create player.
+		else if(state == playerQuadState){ tempName = playerNameField.text;  selectQuadrant.SetActive(true); playersCreated++;}// increment playersCreated on transition. assign starting quad to player.  Disable quads that have been selected.
+		else if(state == readyState){ ready.SetActive(true);}
 
 		else if(state == startGameAnimationState) {
 			labScript.populateMaze();
-			HUD.active = true;
+			HUD.SetActive(true);
 			//updateHUD
 			playerManager.setAvatarsActive();
 
@@ -228,27 +228,27 @@ public class GameMainScript : MonoBehaviour {
 			//player standings turned on 
 			//player cards turned on 
 			//spacebar to roll text turned on
-			HUD.active = true;
-			spacebarToRollText.active = true;
+			HUD.SetActive(true);
+			spacebarToRollText.SetActive(true);
 			playerManager.updatePlayerNameText();
 			mainCam.setCameraFollowAvatar(true);
 		}
 		else if(state == playerChooseSpaceState){ 
 			//Update steps remaining on HUD
 			//possible steps in range are highlighted on board. 
-			HUD.active = true;
-			spacebarToRollText.active = false;
+			HUD.SetActive(true);
+			spacebarToRollText.SetActive(false);
 		}
 	}
 
 	public void hideAllUI() {
 		//spacebarToRollText.active = false;
-		HUD.active = false;
-		pressSpaceBarToStart.active = false;
-		howManyPlayers.active = false;
-		enterYourName.active = false;
-		selectQuadrant.active = false;
-		ready.active = false;
+		HUD.SetActive(false);
+		pressSpaceBarToStart.SetActive(false);
+		howManyPlayers.SetActive(false);
+		enterYourName.SetActive(false);
+		selectQuadrant.SetActive(false);
+		ready.SetActive(false);
 	}
 
 
