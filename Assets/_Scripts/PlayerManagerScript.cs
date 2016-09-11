@@ -31,6 +31,7 @@ public class PlayerManagerScript : MonoBehaviour {
 
 	public PlayerScript[] players;
 	public int currentPlayerIndex = 0;
+	public int NumPlayers = 1;
 
 	public int NumStepsLeft = 0;
 	public CameraBehaviorScript mainCam;
@@ -51,6 +52,7 @@ public class PlayerManagerScript : MonoBehaviour {
 	}
 
 	public void initCurrentPlayer(){
+		//this seems like it should look for first player in list, not just always green player
 		currentPlayer = GreenPlayer;
 		currentAvatar = GreenAvatar;
 		mainCam.setAvatar(GreenAvatar);
@@ -67,12 +69,14 @@ public class PlayerManagerScript : MonoBehaviour {
 	//called from input from "how many players" screen
 	public void createPlayerArray(int i){
 		//input parameter is literally useless now.
-		players = new PlayerScript[4];
+		players = new PlayerScript[i];
 
-		for(int j = 0; j<4; j++){
+		for(int j = 0; j<i; j++){
+			//PlayerScript player = new PlayerScript(j);
 			PlayerScript player = new PlayerScript(j);
 			players[j] = player;
 		}
+		NumPlayers = i;
 	}
 
 	public void addPlayer(int quad, string name){
@@ -108,9 +112,19 @@ public class PlayerManagerScript : MonoBehaviour {
 
 	public void nextPlayer(){
 		currentPlayerIndex++;
-		if(currentPlayerIndex >=4) currentPlayerIndex = 0;
+		if(currentPlayerIndex >= NumPlayers) currentPlayerIndex = 0;
 
-		setPlayerActive(currentPlayerIndex); 
+		//maincam turn off avatar tracking
+		//switch current player to next player
+		//wait while we move camera to next player
+		//turn avatar tracking back on
+		mainCam.cameraFollowAvatar = false;
+		setPlayerActive(currentPlayerIndex);
+		bool cameraAtNextPlayer = false;
+		while (!cameraAtNextPlayer) {
+			cameraAtNextPlayer = mainCam.smoothCameraTransition(this.playerLocation (),  Quaternion.Euler(new Vector3(60, 0, 0)), 50 );
+		}
+		mainCam.cameraFollowAvatar = true;
 		updateHUD();
 
 		//update UI with new player name, number of steps, change Cards displayed when Cards are shown.  
@@ -130,9 +144,9 @@ public class PlayerManagerScript : MonoBehaviour {
 
 	public void setAvatarsActive(){
 		GreenAvatar.active = true;
-		PurpleAvatar.active = true;
-		RedAvatar.active = true;
-		BlueAvatar.active = true;
+		if(NumPlayers >=2) PurpleAvatar.active = true;
+		if(NumPlayers >=3) RedAvatar.active = true;
+		if(NumPlayers >=4) BlueAvatar.active = true;
 	}
 
 	public void setPlayerActive(int playerIndex){
@@ -158,7 +172,7 @@ public class PlayerManagerScript : MonoBehaviour {
 
 	public int currentTryToStepInDirection(Vector3 direction){
 		AvatarBehaviorScript av = currentAvatar.GetComponent<AvatarBehaviorScript>();
-		bool success = av.tryToStep(direction);
+		bool success = av.tryToStep(direction, NumStepsLeft);
 		if(success){
 			NumStepsLeft--;
 			updateStepsText();

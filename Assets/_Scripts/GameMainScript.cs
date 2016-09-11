@@ -10,7 +10,7 @@ public class GameMainScript : MonoBehaviour {
 	public string player4Name;
 
 	public GameObject pressSpaceBarToStart;  //Text
-	public GameObject howManyPlayers;  //Text
+	public GameObject howManyPlayers;  //Texts
 	public Button one;
 	public Button two;
 	public Button three;
@@ -70,6 +70,7 @@ public class GameMainScript : MonoBehaviour {
 		playerQuadState = 3;
 		readyState = 4;
 		startGameAnimationState = 5;
+
 		playerRollDiceState = 10;
 		playerChooseSpaceState = 11;
 		showPlayerCardsState = 12;
@@ -108,12 +109,14 @@ public class GameMainScript : MonoBehaviour {
 			pressSpaceBarToStart.SetActive(true);
 			if(Input.GetKeyDown(KeyCode.Space)){
 				setGameState (numPlayersState);
-				howManyPlayers.SetActive(true);
+				//howManyPlayers.SetActive(true);
+				return;
 			}
+			return;
 		}
 
 		if(state == numPlayersState){
-			print("In NumPlayersState");
+			//print("In NumPlayersState");
 
 			//if "one" pressed, numPlayers = 1; etc.
 			//Once number of players has been selected, go to next state
@@ -124,32 +127,36 @@ public class GameMainScript : MonoBehaviour {
 		}
 
 		if(state == playerNameState){
-			if(playersCreated >= numPlayers) {
+			if(playersCreated >= numPlayers && numPlayers > 0) {
 				if(numPlayers > 0){
 					setGameState(readyState);
 					
 				}
 			}
+			return;
 		}
 
 		if(state == playerQuadState){
 			//selectQuadrant.active = true;
+			return;
 		}
 
 		if(state == readyState) {
 			if(Input.GetKeyDown(KeyCode.Return)){
 				setGameState(startGameAnimationState);
 			}
+			return;
 		}
 		if(state == startGameAnimationState){
 			//do things here.  Interpolate camera position.
-			bool ready = mainCam.smoothCameraTransition(playerManager.playerLocation(), Quaternion.Euler(new Vector3(40, 0, 0)), 50);
+			bool ready = mainCam.smoothCameraTransition(playerManager.playerLocation(), Quaternion.Euler(new Vector3(60, 0, 0)), 50);
 			print("Is ready? " + ready);
 			if(ready) {
 				print("Ready to start turn");
 				HUD.SetActive(true);
 				setGameState(playerRollDiceState);
 			}
+			return;
 		}
 
 		if(state == playerRollDiceState){
@@ -160,6 +167,7 @@ public class GameMainScript : MonoBehaviour {
 
 				setGameState(playerChooseSpaceState);
 			}
+			return;
 		}
 
 		if(state == playerChooseSpaceState){
@@ -182,23 +190,36 @@ public class GameMainScript : MonoBehaviour {
 			}
 
 			if(steps <= 0){
+				mainCam.cameraFollowAvatar = false;
 				playerManager.nextPlayer();
-				setGameState(playerRollDiceState);
+				setGameState(nextPlayerTransitionState);
 			}
 			//}
+			return;
 
 		}
 
 		if(state == showPlayerCardsState){
 			//display the cards that the player has in hand
+			return;
 		}
 
 		if(state == showPlayerStandingsState){
 			//show player rankings
+			return;
+		}
+
+		if (state == nextPlayerTransitionState) {
+			bool cameraAtNextPlayer = false;
+			while (!cameraAtNextPlayer) {
+				cameraAtNextPlayer = mainCam.smoothCameraTransition(playerManager.playerLocation (),  Quaternion.Euler(new Vector3(60, 0, 0)), 50 );
+			}
+			mainCam.cameraFollowAvatar = true;
 		}
 	}
 
 	public void setNumPlayers(int num){
+		print ("we're setting the number of players here");
 		numPlayers = num;
 		playerManager.createPlayerArray(num);
 	}
@@ -213,9 +234,16 @@ public class GameMainScript : MonoBehaviour {
 		hideAllUI();
 
 		if(state == startState){ introHud.SetActive(true); pressSpaceBarToStart.SetActive(true); print("intro hud should be active");}
-		else if(state == numPlayersState){ howManyPlayers.SetActive(true);}//set numPlayers
+		else if(state == numPlayersState){
+			print("HowManyPlayers UI is real?" );
+			howManyPlayers.SetActive(true);
+		}//set numPlayers
 		else if(state == playerNameState){ enterYourName.SetActive(true);}//create player.
-		else if(state == playerQuadState){ tempName = playerNameField.text;  selectQuadrant.SetActive(true); playersCreated++;}// increment playersCreated on transition. assign starting quad to player.  Disable quads that have been selected.
+		else if(state == playerQuadState){ 
+			tempName = playerNameField.text;  
+			selectQuadrant.SetActive(true); 
+			playersCreated++;
+		}// increment playersCreated on transition. assign starting quad to player.  Disable quads that have been selected.
 		else if(state == readyState){ ready.SetActive(true);}
 
 		else if(state == startGameAnimationState) {

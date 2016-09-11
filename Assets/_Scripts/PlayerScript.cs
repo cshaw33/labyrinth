@@ -18,6 +18,7 @@ public class PlayerScript : MonoBehaviour{
 
 	public PlayerScript(int quad){
 		//instantiate a new avatar for each player.
+		setPlayerQuad (quad);
 	}
 	
 	// Update is called once per frame

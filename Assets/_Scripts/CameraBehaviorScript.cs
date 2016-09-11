@@ -5,12 +5,14 @@ public class CameraBehaviorScript : MonoBehaviour {
 
 	public GameObject avatar; //set by PlayerManagerScript
 	private Vector3 offset;
+	private Vector3 avatarOffset;
 
 	public bool cameraFollowAvatar = false;  //toggled by GameMainScript state machine
 
 	// Use this for initialization
 	void Start () {
 		offset = transform.position;
+		avatarOffset = new Vector3 (0, 30, -15);
 	}
 
 	// Update is called once per frame
@@ -23,7 +25,8 @@ public class CameraBehaviorScript : MonoBehaviour {
 		//else transform.position = offset;
 
 		if(cameraFollowAvatar){
-			//transform.position = avatar.transform.position + offset;
+			transform.position = avatar.transform.position + avatarOffset;
+
 		}
 	}
 
@@ -39,20 +42,20 @@ public class CameraBehaviorScript : MonoBehaviour {
 
 
 
-		float mag = (newLocation + offset - transform.position).magnitude;
+		float mag = (newLocation + avatarOffset - transform.position).magnitude;
 		print("magnitude is : "+ mag);
 		if(mag <= 1.0f){
 			//snap to position:
-			transform.position = newLocation + offset;
+			transform.position = newLocation + avatarOffset;
 			print("snapping to position");
 			return true;
 		}
 
 
-		Vector3 transpose = newLocation + offset - transform.position;
+		Vector3 transpose = newLocation + avatarOffset - transform.position;
 		transpose.Normalize();
 		transform.position = transform.position + transpose * 1;
-		if((newLocation + offset - transform.position).magnitude < 1.0f){
+		if((newLocation + avatarOffset - transform.position).magnitude < 1.0f){
 			print("We're pretty damn close!");
 			return true;
 		}

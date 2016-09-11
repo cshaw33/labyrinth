@@ -187,11 +187,14 @@ public class LabyrinthScript : MonoBehaviour {
 
 		xInt = xInt/5;
 		yInt = yInt/5;
+
+		//if(xInt < 37 && yInt < 37)
+		print ("xInt = " + xInt + "yInt = " + yInt);
 		print(maze[xInt, yInt]);
 		return maze[xInt, yInt];
 	}
 
-	public bool checkIfCanStep(float x, float y) {
+	public bool checkIfCanStep(float x, float y, int stepsLeft) {
 		char space = getValue(x, y);
 
 		if(space == 'p'){
@@ -205,25 +208,29 @@ public class LabyrinthScript : MonoBehaviour {
 			return true;
 		}
 		if(space == '2'){
-			return testRoll(2);
+			return testRoll(2, stepsLeft);
 		}
 		if(space == '3'){
-			return testRoll(3);
+			return testRoll(3, stepsLeft);
 		}
 		if(space == '4'){
-			return testRoll(4);
+			return testRoll(4, stepsLeft);
 		}
 		if(space == '5'){
-			return testRoll(5);
+			return testRoll(5, stepsLeft);
 		}
 		if(space == '6'){
-			return testRoll(6);
+			return testRoll(6, stepsLeft);
 		}
 
 		return false;
 	}
 
-	private bool testRoll(int num){
-		return true;
+	private bool testRoll(int target, int stepsLeft){
+		//return true;
+
+		// To get through a number gate, you must have at least
+		// that many steps remaining.  If not, you cannot pass through this turn.
+		return stepsLeft >= target;
 	}
 }
