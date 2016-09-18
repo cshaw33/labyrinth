@@ -194,7 +194,6 @@ public class GameMainScript : MonoBehaviour {
 				playerManager.nextPlayer();
 				setGameState(nextPlayerTransitionState);
 			}
-			//}
 			return;
 
 		}
@@ -210,11 +209,14 @@ public class GameMainScript : MonoBehaviour {
 		}
 
 		if (state == nextPlayerTransitionState) {
-			bool cameraAtNextPlayer = false;
-			while (!cameraAtNextPlayer) {
-				cameraAtNextPlayer = mainCam.smoothCameraTransition(playerManager.playerLocation (),  Quaternion.Euler(new Vector3(60, 0, 0)), 50 );
+			bool cameraAtNextPlayer = mainCam.smoothCameraTransition(playerManager.playerLocation (),  Quaternion.Euler(new Vector3(60, 0, 0)), 50 );
+
+			if(cameraAtNextPlayer){
+				mainCam.cameraFollowAvatar = true;
+				setGameState (playerRollDiceState);
+				return;
 			}
-			mainCam.cameraFollowAvatar = true;
+			return;
 		}
 	}
 

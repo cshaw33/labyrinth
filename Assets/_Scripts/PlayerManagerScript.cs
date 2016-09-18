@@ -120,11 +120,7 @@ public class PlayerManagerScript : MonoBehaviour {
 		//turn avatar tracking back on
 		mainCam.cameraFollowAvatar = false;
 		setPlayerActive(currentPlayerIndex);
-		bool cameraAtNextPlayer = false;
-		while (!cameraAtNextPlayer) {
-			cameraAtNextPlayer = mainCam.smoothCameraTransition(this.playerLocation (),  Quaternion.Euler(new Vector3(60, 0, 0)), 50 );
-		}
-		mainCam.cameraFollowAvatar = true;
+
 		updateHUD();
 
 		//update UI with new player name, number of steps, change Cards displayed when Cards are shown.  
